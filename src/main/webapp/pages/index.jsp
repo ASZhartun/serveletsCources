@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List"%>
+<%@ page import="cot.anatoliy.entity.Person"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +11,12 @@
 </head>
 <body>
 <h2>Crowd non-exiting people</h2>
+
+
+
+<br>
+
+
 <br>
 <table border="2px">
     <thead>
@@ -42,12 +53,26 @@
         </td>
         <td>
             <form action="/servlets-app/main" method="get">
+                <input type="hidden" name="deleteIdParam"  value="${person.getId()}"   />
                 <button type="submit">DELETE</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+<br><br><br>
+
+<table border="2">
+
+    <c:forEach items="${personList}" var="person">
+        <tr>
+            <td>${person.getId()}</td>
+            <td>${person.getName()}</td>
+            <td>${person.getAge()}</td>
+        </tr>
+    </c:forEach>
+</table>
+
 <br><br><br>
 <form action="/servlets-app/createPerson" method="get">
     <button>Add new person</button>

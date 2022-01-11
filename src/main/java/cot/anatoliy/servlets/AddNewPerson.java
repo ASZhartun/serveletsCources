@@ -1,5 +1,7 @@
 package cot.anatoliy.servlets;
 
+import cot.anatoliy.entity.Person;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +23,28 @@ public class AddNewPerson extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Create new Entity!");
+        System.out.println("With next params:");
+        Integer idParam = Integer.parseInt(req.getParameter("idParam"));
+        String nameParam = req.getParameter("nameParam");
+        Integer ageParam = Integer.parseInt(req.getParameter("ageParam"));
+
+        Person newPerson = new Person(generateId(), nameParam, ageParam);
+        MainServlet.collect.add(newPerson);
+
+
+
+        System.out.println(idParam + nameParam + ageParam);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         resp.sendRedirect("/servlets-app/main");
+//        req.getRequestDispatcher("/main").forward(req, resp);
+
+    }
+
+    private int generateId() {
+        return 999;
     }
 }

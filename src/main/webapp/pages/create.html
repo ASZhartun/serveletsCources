@@ -8,13 +8,13 @@
 <h2>Add new person:</h2>
 <form action="/servlets-app/createPerson" method="post">
     <label>ID:
-        <input type="number" value="100">
+        <input type="number" value="100" name="idParam">
     </label>
     <label>NAME:
-        <input type="text" value="Ivanov Ivan Ivanovich">
+        <input type="text" value="Ivanov Ivan Ivanovich" name="nameParam">
     </label>
     <label>AGE:
-        <input type="number" value="18">
+        <input type="number" value="18" name="ageParam">
     </label>
     <button type="submit" id="creating">Create</button>
 </form>
