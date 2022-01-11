@@ -26,6 +26,6 @@ public class AddNewPerson extends HttpServlet {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        req.getRequestDispatcher("/pages/index.html").forward(req, resp);
+        resp.sendRedirect("/servlets-app/main");
     }
 }
