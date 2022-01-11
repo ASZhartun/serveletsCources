@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new Person</title>
+    <script>
+        myBtn = document.getElementById("creating");
+        myBtn.addEventListener("click",);
+        function() {
+            var i = 3;
+            while (i > 0) {
+                setTimeout {function() {
+                    document.innerHtml = i;
+                    }, 1000};
+            }
+        }
+    </script>
+</head>
+<body>
+<h2>Add new person:</h2>
+<form action="/create" method="post">
+    <label>ID:
+        <input type="number" value="100">
+    </label>
+    <label>NAME:
+        <input type="text" value="Ivanov Ivan Ivanovich">
+    </label>
+    <label>AGE:
+        <input type="number" value="18">
+    </label>
+    <button type="submit" id="creating">Create</button>
+</form>
+<br>
+<form action="/main" method="get">
+    <button>Cancel</button>
+</form>
+</body>
+</html>
