@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List"%>
-<%@ page import="cot.anatoliy.entity.Person"%>
+<%@ page buffer="16kb"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,13 +11,8 @@
 </head>
 <body>
 <h2>Crowd non-exiting people</h2>
-
-
-
 <br>
 
-
-<br>
 <table border="2px">
     <thead>
     <th>ID</th>
@@ -26,54 +21,33 @@
     <th>ACTION1</th>
     <th>ACTION2</th>
     </thead>
+
     <tbody>
-    <tr>
-        <td>1</td>
-        <td>Korpatov Oleg Denisovich</td>
-        <td>45</td>
-        <td>
-            <form action="/servlets-app/main" method="get">
-                <button type="submit">UPDATE</button>
-            </form>
-        </td>
-        <td>
-            <form action="/servlets-app/main" method="get">
-                <button type="submit">DELETE</button>
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Ivanov Zigmund Albertovich</td>
-        <td>32</td>
-        <td>
-            <form action="/servlets-app/main" method="get">
-                <button type="submit">UPDATE</button>
-            </form>
-        </td>
-        <td>
-            <form action="/servlets-app/main" method="get">
-                <input type="hidden" name="deleteIdParam"  value="${person.getId()}"   />
-                <button type="submit">DELETE</button>
-            </form>
-        </td>
-    </tr>
+        <c:forEach items="${ListOfPerson}" var="itemPerson">
+
+            <tr>
+                <td>${itemPerson.getId()}</td>
+                <td>${itemPerson.getName()}</td>
+                <td>${itemPerson.getAge()}</td>
+                <td>
+                    <form action="/servlets-app/update" method="get">
+                        <input type="hidden" name="updateById" value="${itemPerson.getId()}"/>
+                        <button type="submit">UPDATE</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/servlets-app/delete" method="post">
+                        <input type="hidden" name="deleteById" value="${itemPerson.getId()}"/>
+                        <button type="submit">DELETE</button>
+                    </form>
+                </td>
+            </tr>
+
+        </c:forEach>
     </tbody>
 </table>
-<br><br><br>
-
-<table border="2">
-
-    <c:forEach items="${personList}" var="person">
-        <tr>
-            <td>${person.getId()}</td>
-            <td>${person.getName()}</td>
-            <td>${person.getAge()}</td>
-        </tr>
-    </c:forEach>
-</table>
-
-<br><br><br>
+<br>
+<br>
 <form action="/servlets-app/createPerson" method="get">
     <button>Add new person</button>
 </form>

@@ -24,5 +24,25 @@
         <servlet-name>AddNewPerson</servlet-name>
         <url-pattern>/createPerson</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeletePersonServlet</servlet-name>
+        <servlet-class>cot.anatoliy.servlets.DeletePersonByIdServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeletePersonServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdatePersonServlet</servlet-name>
+        <servlet-class>cot.anatoliy.servlets.UpdatePersonByIdServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdatePersonServlet</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
 </web-app>
 

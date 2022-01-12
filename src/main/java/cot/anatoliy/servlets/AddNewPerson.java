@@ -9,42 +9,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AddNewPerson extends HttpServlet {
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.service(req, resp);
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("http://localhost:8080/servlets-app/pages/create.html");
-//        req.getRequestDispatcher("pages/create.html").forward(req, resp);
+        req.setAttribute("welcomeMessage", "Add new person:");
+        req.setAttribute("requestName", "/servlets-app/createPerson");
+        req.getRequestDispatcher("/pages/create.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Create new Entity!");
-        System.out.println("With next params:");
-        Integer idParam = Integer.parseInt(req.getParameter("idParam"));
         String nameParam = req.getParameter("nameParam");
-        Integer ageParam = Integer.parseInt(req.getParameter("ageParam"));
-
-        Person newPerson = new Person(generateId(), nameParam, ageParam);
-        MainServlet.collect.add(newPerson);
-
-
-
-        System.out.println(idParam + nameParam + ageParam);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        resp.sendRedirect("/servlets-app/main");
-//        req.getRequestDispatcher("/main").forward(req, resp);
-
+        int ageParam = Integer.parseInt(req.getParameter("ageParam"));
+        Person person = new Person(MainServlet.getId(), nameParam, ageParam);
+        MainServlet.addPerson(person);
+        req.getRequestDispatcher("/main").forward(req, resp);
     }
 
-    private int generateId() {
-        return 999;
-    }
 }
