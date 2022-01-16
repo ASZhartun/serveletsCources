@@ -20,9 +20,17 @@ public class AddNewPerson extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nameParam = req.getParameter("nameParam");
-        int ageParam = Integer.parseInt(req.getParameter("ageParam"));
-        Person person = new Person(MainServlet.getId(), nameParam, ageParam);
-        MainServlet.addPerson(person);
+        int ageParam = 0;
+        try {
+            ageParam = Integer.parseInt(req.getParameter("ageParam"));
+        } catch (NumberFormatException e) {
+            req.getRequestDispatcher("/main").forward(req, resp);
+            return;
+        }
+        if (!"".equals(nameParam) && ageParam > 0) {
+            Person person = new Person(MainServlet.getId(), nameParam, ageParam);
+            MainServlet.addPerson(person);
+        }
         req.getRequestDispatcher("/main").forward(req, resp);
     }
 

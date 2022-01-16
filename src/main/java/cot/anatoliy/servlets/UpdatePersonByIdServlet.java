@@ -25,16 +25,24 @@ public class UpdatePersonByIdServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long personId = Long.parseLong(req.getParameter("personId"));
-        Person person = MainServlet.getPersonById(personId);
-        try {
-            person.setName(req.getParameter("nameParam"));
-            person.setAge(Integer.parseInt(req.getParameter("ageParam")));
-        } catch (NumberFormatException e) {
-            System.out.println("Something wrong!");
-        } finally {
-            req.getRequestDispatcher("/main").forward(req, resp);
+        int ageChanged = Integer.parseInt(req.getParameter("ageParam"));
+        if (ageChanged > 0) {
+            long personId = Long.parseLong(req.getParameter("personId"));
+            Person person = MainServlet.getPersonById(personId);
+            try {
+                if (person != null) {
+                    person.setName(req.getParameter("nameParam"));
+                    person.setAge(Integer.parseInt(req.getParameter("ageParam")));
+                }
+            } catch (Exception e) {
+                System.out.println("Something wrong!");
+            } finally {
+                req.getRequestDispatcher("/main").forward(req, resp);
+            }
         }
+        else req.getRequestDispatcher("/main").forward(req, resp);
+
+
 
     }
 }
