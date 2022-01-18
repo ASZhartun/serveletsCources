@@ -18,12 +18,12 @@
             <h2 class="text-center text-uppercase" style="color: whitesmoke; padding-top: 20px;">${welcomeMessage}</h2>
             <div class="container form-group" style="max-width: 55%; margin-top: 30px;">
                 <form action="${requestName}" method="post"">
-                    <div class="container-fluid d-flex-center">
+                    <div class="container-fluid d-flex flex-row justify-content-between">
                         <label>NAME:
-                            <input class="form-control-lg" type="text" value="${nameValue}" name="nameParam">
+                            <input class="form-control-sm" type="text" value="${nameValue}" name="nameParam">
                         </label>
                         <label>AGE:
-                            <input class="form-control-lg" type="number" value="${ageValue}" name="ageParam">
+                            <input class="form-control-sm" type="number" value="${ageValue}" name="ageParam">
                         </label>
                     </div>
                     <div style="margin-top: 30px;">
