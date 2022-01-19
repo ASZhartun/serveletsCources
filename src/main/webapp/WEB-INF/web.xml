@@ -6,22 +6,27 @@
          version="4.0">
 
     <servlet>
-        <servlet-name>MainTable</servlet-name>
-        <servlet-class>cot.anatoliy.servlets.MainServlet</servlet-class>
+        <servlet-name>PersonList</servlet-name>
+        <servlet-class>cot.anatoliy.servlets.PersonListServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>MainTable</servlet-name>
+        <servlet-name>PersonList</servlet-name>
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>PersonList</servlet-name>
+        <url-pattern></url-pattern>
+    </servlet-mapping>
+
     <servlet>
-        <servlet-name>AddNewPerson</servlet-name>
-        <servlet-class>cot.anatoliy.servlets.AddNewPerson</servlet-class>
+        <servlet-name>CreateNewPerson</servlet-name>
+        <servlet-class>cot.anatoliy.servlets.CreateNewPerson</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>AddNewPerson</servlet-name>
+        <servlet-name>CreateNewPerson</servlet-name>
         <url-pattern>/createPerson</url-pattern>
     </servlet-mapping>
 
