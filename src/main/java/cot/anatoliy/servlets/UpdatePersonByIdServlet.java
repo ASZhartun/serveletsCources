@@ -16,8 +16,8 @@ public class UpdatePersonByIdServlet extends HttpServlet {
         req.setAttribute("requestName", "/servlets-app/update");
         PersonService personService = new PersonService();
         Person person = personService.readPersonById(Integer.parseInt(req.getParameter("updateById")));
-        req.setAttribute("nameValue",person.getName());
-        req.setAttribute("ageValue",person.getAge());
+        req.setAttribute("nameValue", person.getName());
+        req.setAttribute("ageValue", person.getAge());
         req.setAttribute("personId", person.getId());
         req.getRequestDispatcher("/pages/create.jsp").forward(req, resp);
     }

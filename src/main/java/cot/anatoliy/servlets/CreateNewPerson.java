@@ -23,7 +23,7 @@ public class CreateNewPerson extends HttpServlet {
         PersonService personService = new PersonService();
         String name = req.getParameter("nameParam");
         int age = Integer.parseInt(req.getParameter("ageParam"));
-        personService.addPerson(new Person(name,age));
+        personService.addPerson(new Person(name, age));
         req.getRequestDispatcher("/main").forward(req, resp);
     }
 

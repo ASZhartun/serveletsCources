@@ -83,8 +83,7 @@ public class PersonJdbcDao implements PersonDao {
                 int age_person = resultSet.getInt(3);
                 return new Person(id_person, name_person, age_person);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -100,8 +99,7 @@ public class PersonJdbcDao implements PersonDao {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             Statement statement = connection.createStatement();
             statement.execute(sqlBuildDelete(id));
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -115,12 +113,11 @@ public class PersonJdbcDao implements PersonDao {
             e.printStackTrace();
         }
 
-        try(Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             final Statement statement = connection.createStatement();
             String sql = sqlBuildUpdate(id, updatedPerson);
             statement.execute(sql);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -128,7 +125,7 @@ public class PersonJdbcDao implements PersonDao {
     private String sqlBuildUpdate(int id, Person updatedPerson) {
         Person person = readPersonById(id);
         final StringBuilder sql = new StringBuilder();
-        if (person!=null) {
+        if (person != null) {
             sql.append("UPDATE `my_database`.`person` SET `name_person` = '")
                     .append(updatedPerson.getName())
                     .append("', `age_person` = '")
