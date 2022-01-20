@@ -16,14 +16,22 @@ public class UpdatePersonByIdServlet extends HttpServlet {
         req.setAttribute("requestName", "/servlets-app/update");
         PersonService personService = new PersonService();
         Person person = personService.readPersonById(Integer.parseInt(req.getParameter("updateById")));
-        req.setAttribute("nameParam",person.getName());
-        req.setAttribute("ageParam",person.getAge());
+        req.setAttribute("nameValue",person.getName());
+        req.setAttribute("ageValue",person.getAge());
         req.setAttribute("personId", person.getId());
         req.getRequestDispatcher("/pages/create.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        PersonService personService = new PersonService();
+        final int personId = Integer.parseInt(req.getParameter("personId"));
+        Person updatedPerson = new Person(
+                Integer.parseInt(req.getParameter("personId")),
+                req.getParameter("nameParam"),
+                Integer.parseInt(req.getParameter("ageParam"))
+        );
+        personService.updatePerson(personId, updatedPerson);
         req.getRequestDispatcher("/main").forward(req, resp);
     }
 }

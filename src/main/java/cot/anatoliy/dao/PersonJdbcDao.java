@@ -69,6 +69,24 @@ public class PersonJdbcDao implements PersonDao {
 
     @Override
     public Person readPersonById(int id) {
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
+            Statement statement = connection.createStatement();
+            final ResultSet resultSet = statement.executeQuery("select * from my_database.person where id_person=" + id);
+            if (resultSet.next()) {
+                int id_person = resultSet.getInt(1);
+                String name_person = resultSet.getString(2);
+                int age_person = resultSet.getInt(3);
+                return new Person(id_person, name_person, age_person);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -87,6 +105,39 @@ public class PersonJdbcDao implements PersonDao {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void updatePerson(int id, Person updatedPerson) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try(Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
+            final Statement statement = connection.createStatement();
+            String sql = sqlBuildUpdate(id, updatedPerson);
+            statement.execute(sql);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String sqlBuildUpdate(int id, Person updatedPerson) {
+        Person person = readPersonById(id);
+        final StringBuilder sql = new StringBuilder();
+        if (person!=null) {
+            sql.append("UPDATE `my_database`.`person` SET `name_person` = '")
+                    .append(updatedPerson.getName())
+                    .append("', `age_person` = '")
+                    .append(updatedPerson.getAge())
+                    .append("' WHERE (`id_person` = '")
+                    .append(id)
+                    .append("');");
+        }
+        return sql.toString();
     }
 
     private String sqlBuildInsert(Person person) {
