@@ -13,46 +13,27 @@ import java.util.stream.Stream;
  */
 public class PersonJdbcDao implements PersonDao {
 
-    public static final String JDBC_URL = "jdbc:mysql://localhost:3306/my_database";
-    public static final String JDBC_USER = "root";
-    public static final String JDBC_PASSWORD = "root";
-    public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-
     public static void main(String[] args) {
-//        new PersonJdbcDao().readAllPersons();
-        new PersonJdbcDao().createPerson(null);
+        new PersonJdbcDao().createPerson(new Person("bolvan", 1050));
     }
 
     @Override
     public void createPerson(Person person) {
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = MySqlUtils.getConnection();
+             Statement statement = connection.createStatement()) {
             String sql = sqlBuildInsert(person);
             statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-
         }
     }
+
 
     @Override
     public List<Person> readAllPersons() {
         List<Person> personList = new ArrayList<>();
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        try (Statement statement = MySqlUtils.getStatement()) {
 
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
-            Statement statement = connection.createStatement();
             String sql = "select * from my_database.person;";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
@@ -69,13 +50,7 @@ public class PersonJdbcDao implements PersonDao {
 
     @Override
     public Person readPersonById(int id) {
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
-            Statement statement = connection.createStatement();
+        try (Statement statement = MySqlUtils.getStatement()) {
             final ResultSet resultSet = statement.executeQuery("select * from my_database.person where id_person=" + id);
             if (resultSet.next()) {
                 int id_person = resultSet.getInt(1);
@@ -91,13 +66,8 @@ public class PersonJdbcDao implements PersonDao {
 
     @Override
     public void deletePerson(int id) {
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
-            Statement statement = connection.createStatement();
+
+        try (Statement statement = MySqlUtils.getStatement()){
             statement.execute(sqlBuildDelete(id));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -107,14 +77,8 @@ public class PersonJdbcDao implements PersonDao {
 
     @Override
     public void updatePerson(int id, Person updatedPerson) {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
-            final Statement statement = connection.createStatement();
+        try (Statement statement = MySqlUtils.getStatement()){
             String sql = sqlBuildUpdate(id, updatedPerson);
             statement.execute(sql);
         } catch (SQLException e) {
@@ -141,7 +105,7 @@ public class PersonJdbcDao implements PersonDao {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO `my_database`.`person` (`name_person`, `age_person`) VALUES ('");
         sql.append(person.getName());
-        sql.append("', '").append(person.getAge()).append("');");
+        sql.append("', ").append(person.getAge()).append(");");
         return sql.toString();
     }
 

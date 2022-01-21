@@ -2,7 +2,6 @@ package cot.anatoliy.servlets;
 
 import cot.anatoliy.entity.Person;
 import cot.anatoliy.services.PersonService;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
