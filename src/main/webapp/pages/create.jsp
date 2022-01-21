@@ -30,7 +30,7 @@
                         <input class="form-control-lg" type="hidden" value="${personId}" name="personId">
                         <button class="container-fluid btn-lg btn-primary btn-block" type="submit" id="creating">Submit</button>
                     </div>
-                </form">
+                </form>
                 <form action="/servlets-app/main" method="get">
                     <button class="container-fluid btn-lg btn-warning btn-block"  style="margin-top: 10px;">Cancel</button>
                 </form>
