@@ -1,4 +1,4 @@
-package cot.anatoliy.dao;
+package cot.anatoliy.dao.interfaces;
 
 import cot.anatoliy.entity.Department;
 
@@ -6,13 +6,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface DepartmentDao {
-    void createDepartment(Department department) throws SQLException;
+    void createDepartment(Department department);
 
     List<Department> readAllDepartments();
 
     Department readDepartmentById(int id);
 
-    void updateDepartment(int id, Department updatedDepartment);
+    void updateDepartment(int id, String nameDepartment, String addressDepartment);
 
     void deleteDepartment(int id);
 }

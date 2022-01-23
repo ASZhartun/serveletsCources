@@ -1,6 +1,6 @@
 package cot.anatoliy.services;
 
-import cot.anatoliy.dao.PersonDao;
+import cot.anatoliy.dao.interfaces.PersonDao;
 import cot.anatoliy.dao.PersonJdbcDao;
 import cot.anatoliy.entity.Person;
 

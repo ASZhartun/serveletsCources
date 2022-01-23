@@ -1,10 +1,11 @@
 package cot.anatoliy.dao;
 
+import cot.anatoliy.dao.interfaces.DeveloperDao;
 import cot.anatoliy.entity.Developer;
 
 import java.util.List;
 
-public class DeveloperJdbcDao implements DeveloperDao{
+public class DeveloperJdbcDao implements DeveloperDao {
     @Override
     public void createDeveloper(Developer developer) {
 

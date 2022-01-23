@@ -1,12 +1,11 @@
 package cot.anatoliy.dao;
 
+import cot.anatoliy.dao.interfaces.PersonDao;
 import cot.anatoliy.entity.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * JdbcDao is using for connect application with DB. It is isolated from servlets(web) and logic(services).
@@ -32,7 +31,8 @@ public class PersonJdbcDao implements PersonDao {
     @Override
     public List<Person> readAllPersons() {
         List<Person> personList = new ArrayList<>();
-        try (Statement statement = MySqlUtils.getStatement()) {
+        try (Connection connection = MySqlUtils.getConnection();
+                Statement statement = connection.createStatement()) {
 
             String sql = "select * from my_database.person;";
             ResultSet resultSet = statement.executeQuery(sql);
@@ -50,7 +50,8 @@ public class PersonJdbcDao implements PersonDao {
 
     @Override
     public Person readPersonById(int id) {
-        try (Statement statement = MySqlUtils.getStatement()) {
+        try (Connection connection = MySqlUtils.getConnection();
+             Statement statement = connection.createStatement()) {
             final ResultSet resultSet = statement.executeQuery("select * from my_database.person where id_person=" + id);
             if (resultSet.next()) {
                 int id_person = resultSet.getInt(1);
@@ -67,7 +68,8 @@ public class PersonJdbcDao implements PersonDao {
     @Override
     public void deletePerson(int id) {
 
-        try (Statement statement = MySqlUtils.getStatement()){
+        try (Connection connection = MySqlUtils.getConnection();
+             Statement statement = connection.createStatement()){
             statement.execute(sqlBuildDelete(id));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,7 +80,8 @@ public class PersonJdbcDao implements PersonDao {
     @Override
     public void updatePerson(int id, Person updatedPerson) {
 
-        try (Statement statement = MySqlUtils.getStatement()){
+        try (Connection connection = MySqlUtils.getConnection();
+             Statement statement = connection.createStatement()){
             String sql = sqlBuildUpdate(id, updatedPerson);
             statement.execute(sql);
         } catch (SQLException e) {

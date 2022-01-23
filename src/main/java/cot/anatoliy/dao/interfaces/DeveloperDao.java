@@ -1,4 +1,4 @@
-package cot.anatoliy.dao;
+package cot.anatoliy.dao.interfaces;
 
 import cot.anatoliy.entity.Developer;
 
