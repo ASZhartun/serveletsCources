@@ -14,9 +14,16 @@ import java.util.stream.Stream;
 
 public class DepartmentJdbcDao implements DepartmentDao {
 
-    public static void main(String[] args) {
-        new DepartmentJdbcDao().updateDepartment(19, "Geologists", "Moscow");
-    }
+//    public static void main(String[] args) {
+//        final DepartmentJdbcDao depDao = new DepartmentJdbcDao();
+//        final DeveloperJdbcDao devDao = new DeveloperJdbcDao();
+//        System.out.println("WAS BACKEND");
+//        devDao.readAllDevelopers().forEach(System.out::println);
+//        System.out.println();
+//        System.out.println("NO BACKEND");
+//        depDao.deleteDepartment(1);
+//        devDao.readAllDevelopers().forEach(System.out::println);
+//    }
 
     @Override
     public void createDepartment(Department department) {

@@ -11,7 +11,7 @@ public interface DeveloperDao {
 
     Developer readDeveloperById(int id);
     
-    void updateDeveloper(int id, Developer updatedDeveloper);
+    void updateDeveloper(int id, String name, int salary, int departmentIdFk);
 
     void deleteDeveloper(int id);
 }

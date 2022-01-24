@@ -13,6 +13,12 @@ public class Developer {
         this.departmentIdFk = departmentIdFk;
     }
 
+    public Developer(String name, int salary, int departmentIdFk) {
+        this.name = name;
+        this.salary = salary;
+        this.departmentIdFk = departmentIdFk;
+    }
+
     public Developer(String name, int salary) {
         this.name = name;
         this.salary = salary;
@@ -51,5 +57,15 @@ public class Developer {
 
     public void setDepartmentIdFk(int departmentIdFk) {
         this.departmentIdFk = departmentIdFk;
+    }
+
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "developerId=" + developerId +
+                ", name='" + name + '\'' +
+                ", salary=" + salary +
+                ", departmentIdFk=" + departmentIdFk +
+                '}';
     }
 }
