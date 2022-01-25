@@ -1,8 +1,18 @@
 package cot.anatoliy.entity;
 
+import javax.persistence.*;
+
+@Entity(name = "person")
 public class Person {
+    @Id
+    @Column(name = "id_person")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "name_person")
     private String name;
+
+    @Column(name = "age_person")
     private int age;
 
     public Person(long id, String name, int age) {

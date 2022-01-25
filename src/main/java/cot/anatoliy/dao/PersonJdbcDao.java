@@ -17,7 +17,7 @@ public class PersonJdbcDao implements PersonDao {
     }
 
     @Override
-    public void createPerson(Person person) {
+    public long createPerson(Person person) {
         try (Connection connection = MySqlUtils.getConnection();
              Statement statement = connection.createStatement()) {
             String sql = sqlBuildInsert(person);
@@ -25,6 +25,7 @@ public class PersonJdbcDao implements PersonDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return -1;
     }
 
 
@@ -49,7 +50,7 @@ public class PersonJdbcDao implements PersonDao {
     }
 
     @Override
-    public Person readPersonById(int id) {
+    public Person readPersonById(long id) {
         try (Connection connection = MySqlUtils.getConnection();
              Statement statement = connection.createStatement()) {
             final ResultSet resultSet = statement.executeQuery("select * from my_database.person where id_person=" + id);
@@ -66,7 +67,7 @@ public class PersonJdbcDao implements PersonDao {
     }
 
     @Override
-    public void deletePerson(int id) {
+    public void deletePerson(long id) {
 
         try (Connection connection = MySqlUtils.getConnection();
              Statement statement = connection.createStatement()){
@@ -78,7 +79,7 @@ public class PersonJdbcDao implements PersonDao {
     }
 
     @Override
-    public void updatePerson(int id, Person updatedPerson) {
+    public void updatePerson(long id, Person updatedPerson) {
 
         try (Connection connection = MySqlUtils.getConnection();
              Statement statement = connection.createStatement()){
@@ -89,7 +90,7 @@ public class PersonJdbcDao implements PersonDao {
         }
     }
 
-    private String sqlBuildUpdate(int id, Person updatedPerson) {
+    private String sqlBuildUpdate(long id, Person updatedPerson) {
         Person person = readPersonById(id);
         final StringBuilder sql = new StringBuilder();
         if (person != null) {
@@ -112,7 +113,7 @@ public class PersonJdbcDao implements PersonDao {
         return sql.toString();
     }
 
-    private String sqlBuildDelete(int id) {
+    private String sqlBuildDelete(long id) {
         String opa = "DELETE FROM `my_database`.`person` WHERE (`id_person` = '13');\n";
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM `my_database`.`person` WHERE (`id_person` = '")

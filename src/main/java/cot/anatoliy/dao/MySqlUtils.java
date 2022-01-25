@@ -1,6 +1,5 @@
 package cot.anatoliy.dao;
 
-import org.apache.commons.dbcp2.DataSourceConnectionFactory;
 import org.apache.commons.dbcp2.DriverManagerConnectionFactory;
 
 import java.sql.*;

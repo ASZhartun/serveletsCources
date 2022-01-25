@@ -1,9 +1,6 @@
 package cot.anatoliy.dao;
-
 import cot.anatoliy.dao.interfaces.DeveloperDao;
-import cot.anatoliy.entity.Department;
 import cot.anatoliy.entity.Developer;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

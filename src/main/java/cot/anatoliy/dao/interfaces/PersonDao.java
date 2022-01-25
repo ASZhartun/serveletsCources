@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface PersonDao {
     // create, read, update, delete
-    void createPerson(Person person);
+    long createPerson(Person person);
 
     List<Person> readAllPersons();
 
-    Person readPersonById(int id);
+    Person readPersonById(long id);
 //
-    void updatePerson(int id, Person updatedPerson);
+    void updatePerson(long id, Person updatedPerson);
 
-    void deletePerson(int id);
+    void deletePerson(long id);
 }
