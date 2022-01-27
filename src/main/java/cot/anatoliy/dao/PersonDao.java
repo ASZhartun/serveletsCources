@@ -12,7 +12,7 @@ public interface PersonDao {
 
     Person readPersonById(int id);
 //
-    void updatePerson(int id, Person updatedPerson);
+    void updatePerson(Person updatedPerson);
 
     void deletePerson(int id);
 }

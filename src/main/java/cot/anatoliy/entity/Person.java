@@ -1,11 +1,24 @@
 package cot.anatoliy.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "person")
 public class Person {
-    private long id;
+    @Id
+    @Column(name = "id_person")
+    private int id;
+
+    @Column(name = "name_person")
     private String name;
+
+    @Column(name = "age_person")
     private int age;
 
-    public Person(long id, String name, int age) {
+    public Person(int id, String name, int age) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -36,11 +49,11 @@ public class Person {
         this.age = age;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

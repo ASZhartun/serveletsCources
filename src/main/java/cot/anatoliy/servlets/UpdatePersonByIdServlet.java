@@ -31,7 +31,7 @@ public class UpdatePersonByIdServlet extends HttpServlet {
                 req.getParameter("nameParam"),
                 Integer.parseInt(req.getParameter("ageParam"))
         );
-        personService.updatePerson(personId, updatedPerson);
+        personService.updatePerson(updatedPerson);
         req.getRequestDispatcher("/main").forward(req, resp);
     }
 }

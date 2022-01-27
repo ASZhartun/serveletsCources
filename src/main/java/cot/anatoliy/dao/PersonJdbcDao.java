@@ -106,7 +106,7 @@ public class PersonJdbcDao implements PersonDao {
     }
 
     @Override
-    public void updatePerson(int id, Person updatedPerson) {
+    public void updatePerson(Person updatedPerson) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -115,15 +115,15 @@ public class PersonJdbcDao implements PersonDao {
 
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
             final Statement statement = connection.createStatement();
-            String sql = sqlBuildUpdate(id, updatedPerson);
+            String sql = sqlBuildUpdate(updatedPerson);
             statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private String sqlBuildUpdate(int id, Person updatedPerson) {
-        Person person = readPersonById(id);
+    private String sqlBuildUpdate(Person updatedPerson) {
+        Person person = readPersonById(updatedPerson.getId());
         final StringBuilder sql = new StringBuilder();
         if (person != null) {
             sql.append("UPDATE `my_database`.`person` SET `name_person` = '")
@@ -131,7 +131,7 @@ public class PersonJdbcDao implements PersonDao {
                     .append("', `age_person` = '")
                     .append(updatedPerson.getAge())
                     .append("' WHERE (`id_person` = '")
-                    .append(id)
+                    .append(updatedPerson.getId())
                     .append("');");
         }
         return sql.toString();
