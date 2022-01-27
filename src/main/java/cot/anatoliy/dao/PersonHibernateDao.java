@@ -9,7 +9,7 @@ import org.hibernate.cfg.Configuration;
 import java.util.List;
 
 public class PersonHibernateDao implements PersonDao {
-    private final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
 
     public static void main(String[] args) {
         final PersonHibernateDao personHibernateDao = new PersonHibernateDao();
@@ -18,6 +18,7 @@ public class PersonHibernateDao implements PersonDao {
 
     @Override
     public void createPerson(Person person) {
+        final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
