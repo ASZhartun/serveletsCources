@@ -4,9 +4,7 @@
 <hibernate-configuration>
     <session-factory>
 
-        <property name = "hibernate.dialect">
-            org.hibernate.dialect.MySQLDialect
-        </property>
+
 
         <property name = "hibernate.connection.driver_class">
             com.mysql.jdbc.Driver
@@ -26,8 +24,23 @@
             root
         </property>
 
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="hibernate.connection.pool_size">5</property>
+        <!-- Echo all executed SQL to stdout -->
+        <property name = "hibernate.dialect">
+            org.hibernate.dialect.MySQLDialect
+        </property>
+        <property name="show_sql">true</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.connection.CharSet">utf8</property>
+        <property name="hibernate.connection.characterEncoding">utf8</property>
+        <property name="hibernate.connection.useUnicode">true</property>
+
         <!-- List of XML mapping files -->
         <mapping resource = "cot.anatoliy.entity.Person"/>
+
+
+
 
     </session-factory>
 </hibernate-configuration>
