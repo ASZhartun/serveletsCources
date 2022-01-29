@@ -33,6 +33,7 @@
         <mapping class="cot.anatoliy.entity.Person" />
         <mapping class="cot.anatoliy.entity.Course" />
         <mapping class="cot.anatoliy.entity.Teacher" />
+        <mapping class="cot.anatoliy.entity.Student" />
 
     </session-factory>
 </hibernate-configuration>
