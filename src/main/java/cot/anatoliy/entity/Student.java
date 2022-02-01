@@ -1,8 +1,9 @@
 package cot.anatoliy.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
-@Entity(name="student")
+@Entity(name = "student")
 public class Student {
     @Id
     @Column(name = "student_id")
@@ -12,6 +13,8 @@ public class Student {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @ManyToMany(mappedBy = "studentList")
+    private Set<Course> courseSet;
 
     public Student(int id, String firstName, String lastName) {
         this.id = id;

@@ -14,8 +14,7 @@ import java.util.List;
 public class CourseHibernateDao implements CourseDao {
     public static void main(String[] args) {
         CourseHibernateDao courseHibernateDao = new CourseHibernateDao();
-        List<Course> courses = courseHibernateDao.readAllCourses();
-        System.out.println();
+
     }
 
 

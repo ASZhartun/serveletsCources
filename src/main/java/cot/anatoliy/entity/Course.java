@@ -1,6 +1,7 @@
 package cot.anatoliy.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "course")
 public class Course {
@@ -12,6 +13,11 @@ public class Course {
     private String name;
     @ManyToOne
     private Teacher teacher;
+    @ManyToMany(mappedBy = "courseSet", cascade = CascadeType.ALL)
+    @JoinTable(name = "student_has_course",
+            joinColumns = {@JoinColumn(name = "student")}, inverseJoinColumns = {@JoinColumn(name = "course")})
+
+    private List<Student> studentList;
 
     public Course(int id, String name, Teacher teacher) {
         this.id = id;
