@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StudentDao {
     // create, read, update, delete
-    int createStudent(Student person);
+    void createStudent(Student person);
 
     List<Student> readAllStudents();
 

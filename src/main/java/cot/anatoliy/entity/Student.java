@@ -1,6 +1,7 @@
 package cot.anatoliy.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "student")
@@ -13,8 +14,11 @@ public class Student {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @ManyToMany(mappedBy = "studentList")
-    private Set<Course> courseSet;
+    @ManyToMany
+    @JoinTable(name = "student_has_course",
+            joinColumns = {@JoinColumn(name = "student_id")}, inverseJoinColumns = {@JoinColumn(name = "course_id")})
+
+    private Set<Course> courseSet = new HashSet<>();
 
     public Student(int id, String firstName, String lastName) {
         this.id = id;
@@ -52,6 +56,15 @@ public class Student {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+
+    public Set<Course> getCourseSet() {
+        return courseSet;
+    }
+
+    public void setCourseSet(Set<Course> courseSet) {
+        this.courseSet = courseSet;
     }
 
     @Override

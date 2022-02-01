@@ -6,6 +6,7 @@ import cot.anatoliy.entity.Teacher;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
@@ -19,8 +20,17 @@ public class CourseHibernateDao implements CourseDao {
 
 
     @Override
-    public int createCourse(Course person) {
-        return 0;
+    public void createCourse(Course course) {
+        Transaction transaction = null;
+        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();
+             Session session = factory.openSession();) {
+            transaction = session.beginTransaction();
+            session.save(course);
+            transaction.commit();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -52,12 +62,30 @@ public class CourseHibernateDao implements CourseDao {
     }
 
     @Override
-    public void updateCourse(int id, Course updatedCourse) {
-
+    public void updateCourse(Course updatedCourse) {
+        Transaction transaction = null;
+        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();
+             Session session = factory.openSession();) {
+            transaction = session.beginTransaction();
+            session.update(updatedCourse);
+            transaction.commit();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void deleteCourse(int id) {
-
+        Transaction transaction = null;
+        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();
+             Session session = factory.openSession();) {
+            transaction = session.beginTransaction();
+            session.delete(readCourseById(id));
+            transaction.commit();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        }
     }
 }

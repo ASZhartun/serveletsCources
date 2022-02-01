@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface TeacherDao {
     // create, read, update, delete
-    int createTeacher(Teacher person);
+    void createTeacher(Teacher person);
 
     List<Teacher> readAllTeachers();
 
     Teacher readTeacherById(long id);
     //
-    void updateTeacher(int id, Teacher updatedTeacher);
+    void updateTeacher(Teacher updatedTeacher);
 
     void deleteTeacher(int id);
 }
