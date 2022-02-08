@@ -7,11 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class Drawer {
 
-
     @Autowired
     @Qualifier("triangle")
     Figure figure;
-
 
     public void paintAsADream() {
         figure.drawLeft();
