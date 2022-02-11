@@ -26,12 +26,12 @@ public class UpdatePersonByIdServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PersonService personService = new PersonService();
         final int personId = Integer.parseInt(req.getParameter("personId"));
-        Person updatedPerson = new Person(
-                Integer.parseInt(req.getParameter("personId")),
-                req.getParameter("nameParam"),
-                Integer.parseInt(req.getParameter("ageParam"))
-        );
-        personService.updatePerson(personId, updatedPerson);
+
+        final int id = Integer.parseInt(req.getParameter("personId"));
+        final String name = req.getParameter("nameParam");
+        final int age = Integer.parseInt(req.getParameter("ageParam"));
+
+        personService.updatePerson(id, name, age);
         req.getRequestDispatcher("/main").forward(req, resp);
     }
 }

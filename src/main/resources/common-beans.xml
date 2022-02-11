@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <context:annotation-config/>
-    <context:component-scan base-package="org.example.spring"/>
+    <context:component-scan base-package="cot.anatoliy"/>
 
 
     <bean id="calculatorBean" class="org.example.spring.springConcept.Calculator" scope="prototype"

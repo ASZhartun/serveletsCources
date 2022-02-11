@@ -7,25 +7,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component(value = "PersonHibernateDaoBean")
 public class PersonHibernateDao implements PersonDao {
-    public static void main(String[] args) {
-        PersonHibernateDao personHibernateDao = new PersonHibernateDao();
-        long generatedId = personHibernateDao.createPerson(new Person(
-                "Pushkin", 777
-        ));
-        Person person = personHibernateDao.readPersonById(generatedId);
-        person.setAge(444);
-        person.setName("Bonch");
-        personHibernateDao.updatePerson(generatedId, person);
-        personHibernateDao.deletePerson(generatedId);
-        List<Person> personList = personHibernateDao.readAllPersons();
-        personList.forEach(System.out::println);
-    }
 
     @Override
     public long createPerson(Person person) {
@@ -64,7 +54,7 @@ public class PersonHibernateDao implements PersonDao {
     }
 
     @Override
-    public Person readPersonById(long id) {
+    public Person readPersonById(int id) {
         try (SessionFactory factory = new Configuration().configure().buildSessionFactory();
              Session session = factory.openSession();) {
 
@@ -78,7 +68,7 @@ public class PersonHibernateDao implements PersonDao {
     }
 
     @Override
-    public void updatePerson(long id, Person updatedPerson) {
+    public void updatePerson(Person updatedPerson) {
         try (SessionFactory factory = new Configuration().configure().buildSessionFactory();
              Session session = factory.openSession();) {
 
@@ -96,7 +86,7 @@ public class PersonHibernateDao implements PersonDao {
     }
 
     @Override
-    public void deletePerson(long id) {
+    public void deletePerson(int id) {
         try (SessionFactory factory = new Configuration().configure().buildSessionFactory();
              Session session = factory.openSession()) {
 

@@ -10,9 +10,9 @@ public interface PersonDao {
 
     List<Person> readAllPersons();
 
-    Person readPersonById(long id);
+    Person readPersonById(int id);
 //
-    void updatePerson(long id, Person updatedPerson);
+    void updatePerson(Person updatedPerson);
 
-    void deletePerson(long id);
+    void deletePerson(int id);
 }

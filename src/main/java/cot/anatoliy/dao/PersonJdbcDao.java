@@ -12,10 +12,6 @@ import java.util.List;
  */
 public class PersonJdbcDao implements PersonDao {
 
-    public static void main(String[] args) {
-        new PersonJdbcDao().createPerson(new Person("bolvan", 1050));
-    }
-
     @Override
     public long createPerson(Person person) {
         try (Connection connection = MySqlUtils.getConnection();
@@ -33,7 +29,7 @@ public class PersonJdbcDao implements PersonDao {
     public List<Person> readAllPersons() {
         List<Person> personList = new ArrayList<>();
         try (Connection connection = MySqlUtils.getConnection();
-                Statement statement = connection.createStatement()) {
+             Statement statement = connection.createStatement()) {
 
             String sql = "select * from my_database.person;";
             ResultSet resultSet = statement.executeQuery(sql);
@@ -50,7 +46,7 @@ public class PersonJdbcDao implements PersonDao {
     }
 
     @Override
-    public Person readPersonById(long id) {
+    public Person readPersonById(int id) {
         try (Connection connection = MySqlUtils.getConnection();
              Statement statement = connection.createStatement()) {
             final ResultSet resultSet = statement.executeQuery("select * from my_database.person where id_person=" + id);
@@ -67,10 +63,10 @@ public class PersonJdbcDao implements PersonDao {
     }
 
     @Override
-    public void deletePerson(long id) {
+    public void deletePerson(int id) {
 
         try (Connection connection = MySqlUtils.getConnection();
-             Statement statement = connection.createStatement()){
+             Statement statement = connection.createStatement()) {
             statement.execute(sqlBuildDelete(id));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,29 +75,26 @@ public class PersonJdbcDao implements PersonDao {
     }
 
     @Override
-    public void updatePerson(long id, Person updatedPerson) {
+    public void updatePerson(Person updatedPerson) {
 
         try (Connection connection = MySqlUtils.getConnection();
-             Statement statement = connection.createStatement()){
-            String sql = sqlBuildUpdate(id, updatedPerson);
+             Statement statement = connection.createStatement()) {
+            String sql = sqlBuildUpdate(updatedPerson);
             statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private String sqlBuildUpdate(long id, Person updatedPerson) {
-        Person person = readPersonById(id);
+    private String sqlBuildUpdate(Person updatedPerson) {
         final StringBuilder sql = new StringBuilder();
-        if (person != null) {
-            sql.append("UPDATE `my_database`.`person` SET `name_person` = '")
-                    .append(updatedPerson.getName())
-                    .append("', `age_person` = '")
-                    .append(updatedPerson.getAge())
-                    .append("' WHERE (`id_person` = '")
-                    .append(id)
-                    .append("');");
-        }
+        sql.append("UPDATE `my_database`.`person` SET `name_person` = '")
+                .append(updatedPerson.getName())
+                .append("', `age_person` = '")
+                .append(updatedPerson.getAge())
+                .append("' WHERE (`id_person` = '")
+                .append(updatedPerson.getId())
+                .append("');");
         return sql.toString();
     }
 

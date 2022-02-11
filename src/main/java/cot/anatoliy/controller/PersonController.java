@@ -7,44 +7,73 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/mvc/person")
+//@RequestMapping("/mvc/person")
 public class PersonController {
 
-//    @Autowired
-//    PersonService personService;
+    @Autowired
+    PersonService personService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping(value = "/main")
     public String getPersonListPage(Model model) {
-        PersonService personService = new PersonService();
-        List<Person> personList = personService.readAllPersons();
+//        PersonService personService = new PersonService();
+        final List<Person> personList = personService.readAllPersons();
         model.addAttribute("ListOfPerson", personList);
         return "index";
     }
 
-
-    @GetMapping("/list2")
-    public ModelAndView getPersonListPage2() {
-        PersonService personService = new PersonService();
-        List<Person> personList = personService.readAllPersons();
-
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("ListOfPerson", personList);
-        mav.setViewName("index");
-
-        return mav;
+    @PostMapping(value = "/main")
+    public ModelAndView postPersonListPage(Model model) {
+        return new ModelAndView("redirect:/main");
     }
 
-
-    @PostMapping("/bla")
-    public String methodA(@RequestParam("deleteIdParam") String deleteIdVariable){
-        int id = Integer.parseInt(deleteIdVariable);
-        new PersonService().deletePerson(id);
-        return "forward:/mvc/person/list";
-//        return "redirect:/mvc/person/list";
+    @GetMapping(value = "/createPerson")
+    public String getCreateNewPersonPage(Model model) {
+        model.addAttribute("welcomeMessage", "Add new person:");
+        model.addAttribute("requestName", "/servlets-app/createPerson");
+        return "create";
     }
 
+    @PostMapping(value = "/createPerson")
+    public ModelAndView createPerson(@RequestParam(name = "nameParam") String name,
+                                     @RequestParam(name = "ageParam") int age) {
+//        PersonService personService = new PersonService();
+        personService.addPerson(new Person(name, age));
+        return new ModelAndView("forward:/main");
+    }
+
+    @GetMapping(value = "/update")
+    public String getUpdatePersonPage(Model model,
+                                      @RequestParam(name = "updateById") int id) {
+        model.addAttribute("welcomeMessage", "Update person:");
+        model.addAttribute("requestName", "/servlets-app/updatePerson");
+//        PersonService personService = new PersonService();
+        final Person person = personService.readPersonById(id);
+        model.addAttribute("nameValue", person.getName());
+        model.addAttribute("ageValue", person.getAge());
+        model.addAttribute("personId", id);
+        return "create";
+    }
+
+    @PostMapping(value = "/updatePerson")
+    public ModelAndView updatePerson(@RequestParam(name = "nameParam") String name,
+                                     @RequestParam(name = "ageParam") int age,
+                                     @RequestParam(name = "personId") int id) {
+//        PersonService personService = new PersonService();
+        personService.updatePerson(id, name, age);
+        return new ModelAndView("forward:/main");
+    }
+
+    @PostMapping(value = "/delete")
+    public ModelAndView deletePerson(Model model,
+                                     @RequestParam(name = "deleteById") int id) {
+//        PersonService personService = new PersonService();
+        personService.deletePerson(id);
+        return new ModelAndView("forward:/main");
+    }
 }
