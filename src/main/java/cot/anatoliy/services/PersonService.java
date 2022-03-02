@@ -7,17 +7,19 @@ import cot.anatoliy.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Logic for class Person in our app. It is isolated from Dao and Servlets.
  */
-@Component(value = "PersonServiceBean")
+@Service
 public class PersonService {
     //    private PersonDao personDao = new PersonJdbcDao();
+    //    @Qualifier(value = "PersonHibernateDaoBean")
     @Autowired
-    @Qualifier(value = "PersonHibernateDaoBean")
+    @Qualifier(value = "PersonSpringDataJPADaoBean")
     private PersonDao personDao;
 
     public void addPerson(Person person) {
